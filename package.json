@@ -1,0 +1,18 @@
+{
+  "name": "loopy-mcp-server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MCP server providing Loopy loop library functionality for LM Studio and other MCP clients",
+  "main": "loopy-mcp-server.ts",
+  "scripts": {
+    "server": "tsx loopy-mcp-server.ts",
+    "dev": "tsx demo.ts",
+    "check": "node --check loopy-mcp-server.ts && node --check catalog-client.ts && node --check loopy-tools.ts && node --check loop-executor.ts",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "tsx": "^4.0.0"
+  }
+}
