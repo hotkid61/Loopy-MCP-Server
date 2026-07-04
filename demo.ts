@@ -1,6 +1,6 @@
-import { CatalogClient } from "./catalog-client.js";
-import { LoopyTools } from "./loopy-tools.js";
-import { LoopExecutor } from "./loop-executor.js";
+import { CatalogClient } from "./catalog-client";
+import { LoopyTools } from "./loopy-tools";
+import { LoopExecutor } from "./loop-executor";
 
 /**
  * Loopy MCP Server Demo
