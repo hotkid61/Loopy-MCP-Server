@@ -69,10 +69,10 @@ export class CatalogClient {
     return catalog
       .filter(
         (loop) =>
-          loop.name.toLowerCase().includes(queryLower) ||
-          loop.description.toLowerCase().includes(queryLower) ||
-          loop.useWhen.toLowerCase().includes(queryLower) ||
-          (loop.category && loop.category.toLowerCase().includes(queryLower))
+          (loop.name?.toLowerCase() || "").includes(queryLower) ||
+          (loop.description?.toLowerCase() || "").includes(queryLower) ||
+          (loop.useWhen?.toLowerCase() || "").includes(queryLower) ||
+          (loop.category?.toLowerCase() || "").includes(queryLower)
       )
       .slice(0, limit);
   }
@@ -91,9 +91,9 @@ export class CatalogClient {
       let score = 0;
 
       for (const keyword of keywords) {
-        if (loop.name.toLowerCase().includes(keyword)) score += 3;
-        if (loop.description.toLowerCase().includes(keyword)) score += 2;
-        if (loop.useWhen.toLowerCase().includes(keyword)) score += 2;
+        if ((loop.name?.toLowerCase() || "").includes(keyword)) score += 3;
+        if ((loop.description?.toLowerCase() || "").includes(keyword)) score += 2;
+        if ((loop.useWhen?.toLowerCase() || "").includes(keyword)) score += 2;
       }
 
       return { loop, score };
@@ -114,7 +114,7 @@ export class CatalogClient {
     return (
       catalog.find(
         (loop) =>
-          loop.id === id || loop.name.toLowerCase() === id.toLowerCase()
+          loop.id === id || loop.name?.toLowerCase() === id.toLowerCase()
       ) || null
     );
   }
