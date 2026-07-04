@@ -1,7 +1,7 @@
 import * as readline from "readline";
-import { CatalogClient, Loop } from "./catalog-client";
-import { LoopyTools } from "./loopy-tools";
-import { LoopExecutor, LoopReceipt } from "./loop-executor";
+import { CatalogClient, Loop } from "./catalog-client.js";
+import { LoopyTools } from "./loopy-tools.js";
+import { LoopExecutor, LoopReceipt } from "./loop-executor.js";
 
 interface MCPRequest {
   jsonrpc: string;
