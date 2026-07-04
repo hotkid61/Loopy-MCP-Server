@@ -69,9 +69,9 @@ export class CatalogClient {
     return catalog
       .filter(
         (loop) => {
-          const name = (loop.name as string || "").toLowerCase();
-          const desc = (loop.description as string || "").toLowerCase();
-          const useWhen = (loop.useWhen as string || "").toLowerCase();
+          const name = typeof loop.name === "string" ? loop.name.toLowerCase() : "";
+          const desc = typeof loop.description === "string" ? loop.description.toLowerCase() : "";
+          const useWhen = typeof loop.useWhen === "string" ? loop.useWhen.toLowerCase() : "";
           const categoryMatch = Array.isArray(loop.category)
             ? loop.category.some((c) => typeof c === "string" && c.toLowerCase().includes(queryLower))
             : typeof loop.category === "string"
@@ -96,11 +96,14 @@ export class CatalogClient {
     const catalog = await this.fetchCatalog();
     const scored = catalog.map((loop) => {
       let score = 0;
+      const name = typeof loop.name === "string" ? loop.name.toLowerCase() : "";
+      const desc = typeof loop.description === "string" ? loop.description.toLowerCase() : "";
+      const useWhen = typeof loop.useWhen === "string" ? loop.useWhen.toLowerCase() : "";
 
       for (const keyword of keywords) {
-        if ((loop.name as string || "").toLowerCase().includes(keyword)) score += 3;
-        if ((loop.description as string || "").toLowerCase().includes(keyword)) score += 2;
-        if ((loop.useWhen as string || "").toLowerCase().includes(keyword)) score += 2;
+        if (name.includes(keyword)) score += 3;
+        if (desc.includes(keyword)) score += 2;
+        if (useWhen.includes(keyword)) score += 2;
       }
 
       return { loop, score };
@@ -120,8 +123,11 @@ export class CatalogClient {
     const catalog = await this.fetchCatalog();
     return (
       catalog.find(
-        (loop) =>
-          loop.id === id || (loop.name as string)?.toLowerCase() === id.toLowerCase()
+        (loop) => {
+          const loopId = loop.id;
+          const loopName = typeof loop.name === "string" ? loop.name.toLowerCase() : "";
+          return loopId === id || loopName === id.toLowerCase();
+        }
       ) || null
     );
   }
@@ -135,8 +141,8 @@ export class CatalogClient {
 
     for (const loop of catalog) {
       if (Array.isArray(loop.category)) {
-        loop.category.forEach(c => {
-          if (typeof c === 'string') categories.add(c);
+        loop.category.forEach((c) => {
+          if (typeof c === "string") categories.add(c);
         });
       } else if (typeof loop.category === "string") {
         categories.add(loop.category);
